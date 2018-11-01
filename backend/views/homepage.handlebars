@@ -1,0 +1,109 @@
+
+<!--Bootsrap, Foundation, Animete.css-->
+
+<header class="site-header"></header>
+<nav class="site-nav sticky-top">
+	
+
+			<div class="wrapper">
+
+				<ul>
+					<li><a class="active" href="#" tabindex="2">Link 1</a></li>
+					<li><a href="#" tabindex="3">Link 2</a></li>
+					<li><a href="#" tabindex="4">Link 3</a></li>
+					<li><a href="#" tabindex="5">Link 4</a></li>
+					<li class="add-trigger-container"><a href="#" id="add-trigger" class="search-trigger" tabindex="5">Add a Room</a></li>
+
+				</ul>
+
+			</div>
+
+</nav>
+<div class="content wrapper">
+	
+  <!-- start slipsum code -->
+
+<h1>Room 1</h1>
+
+
+
+   <div id="room-content">
+    <div id="fuck">
+      <button id="on" class="btn btn-success" style="margin-right: 5px;">On</button>
+      <button id="off" class="btn btn-secondary">Off</button>
+    </div>
+
+
+    <img src="images/room.jpg" alt="RoomOne" width="700" height="700">
+
+    
+
+  {{!-- </div>
+
+  <div class="wrapper">
+  <div class="switch">
+    <button class="toggle"></button>
+  </div>
+  <div class="bulb">
+    <div class="glass">
+      <div class="filament"></div>
+    </div>
+    <div class="stem"></div>
+  </div>
+</div> --}}
+  
+
+{{!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga labore id voluptatum, placeat dignissimos minima, quos beatae, veniam facere unde in libero corporis facilis officiis reprehenderit modi? Quo, dignissimos iusto. </p> --}}
+
+{{!-- <h1>Room 2</h1>
+
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae iste repellendus voluptatibus autem consectetur tempora quis cupiditate voluptatum. Suscipit, quo ducimus voluptate eum magnam perferendis nulla. Nisi assumenda veritatis officia? </p>
+
+<h1>Room 3</h1>
+
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias maiores ipsam harum natus earum molestiae quibusdam libero provident nostrum! Id impedit laborum deserunt accusamus tenetur doloremque nostrum officiis obcaecati consequatur? </p>
+
+<h1>Room 4</h1>
+
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet necessitatibus quod esse a itaque laudantium libero atque eligendi aliquid? Saepe velit dolorem amet maxime nesciunt eaque aspernatur, eveniet quae nemo. </p>
+
+<h1>Room 5</h1>
+
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, facilis esse architecto tempore id necessitatibus quam, nesciunt quia temporibus, voluptate alias tempora facere! Delectus a deserunt, eos hic neque obcaecati! </p> --}}
+
+<!-- please do not remove this line -->
+
+
+<div style="display:none;">
+<a href="http://google.com">lorem ipsum</a></div>
+
+<script src="js/homepage.js"></script>
+
+</div>
+
+{{!-- Button Inout engine  --}}
+
+<script>
+  $("#on").on("click", function () {
+    $.ajax({
+      url: "/api/arduino",
+      type: "POST",
+      data: { status: "on" }
+    }).then(function (response) {
+    });
+  });
+
+  $("#off").on("click", function () {
+
+    $.ajax({
+      url: "/api/arduino",
+      type: "POST",
+      data: { status: "off" }
+    }).then(function (response) {
+    });
+  });
+
+  
+
+
+</script>
