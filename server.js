@@ -1,24 +1,45 @@
+require("dotenv").config();
+
 const express = require("express");
+var bodyParser = require("body-parser");
+var exphbs = require("express-handlebars");
+const path = require("path");
 
-//const mongoose = require("mongoose");
-const routes = require("./routes");
-const app = express();
-const PORT = process.env.PORT || 3001;
+var db = require("./models");
+var app = express();
+var PORT = process.env.PORT || 3001;
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Handlebars
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
+
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-// Add routes, both API and view
-app.use(routes);
 
-// Connect to the Mongo DB
-//mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+// Send every request to the React app
+// Define any API routes before this runs
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
-// Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+// Starting the server, syncing our models ------------------------------------/
+var syncOptions = { force: false };
+db.sequelize.sync(syncOptions).then(function() {
+  app.listen(PORT, function() {
+    console.log("server started");
+  });
 });
