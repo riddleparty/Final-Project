@@ -1,7 +1,7 @@
-var db = require("../models");
-var five = require("johnny-five");
-var board = new five.Board();
-var firebase = require("firebase");
+const db = require("../models");
+const five = require("johnny-five");
+const board = new five.Board();
+const firebase = require("firebase");
 
 
 //---------------------------------------------------------------------------------------------//
@@ -9,7 +9,7 @@ var firebase = require("firebase");
 //---------------------------------------------------------------------------------------------//
 
 //firebase connection for real-time communication
-var config = {
+const config = {
   apiKey: "AIzaSyBP4nQ3aIXnDzziz_oiq5lBHryfl6K7uKI",
   authDomain: "home-automation-smardo.firebaseapp.com",
   databaseURL: "https://home-automation-smardo.firebaseio.com",
@@ -18,10 +18,10 @@ var config = {
   messagingSenderId: "942353647693"
 };
 
-var appFirebase = firebase.initializeApp(config);
+const appFirebase = firebase.initializeApp(config);
 
 // Create a variable to reference the database
-var database = firebase.database();
+const database = firebase.database();
 
 //firebase will contain light's "ON/OFF" info as well as temperature reading values
 //the code continues after module.export
@@ -30,42 +30,78 @@ var database = firebase.database();
 
 database.ref().on("value", function (snapshot) {
 
-  islightOn = snapshot.val().islightOn;
-  console.log(islightOn);
-  if (islightOn) {
+  room1Light_Status = snapshot.val().room1Light_Status;
+  room2Light_Status = snapshot.val().room2Light_Status;
+  roomTemp = snapshot.val().roomTemp;
+  console.log(roomTemp)
+  // console.log(room1Light_Status);
+  if (room1Light_Status) {
     //database....
   }
+
 });
 
 
 
 board.on("ready", function () {
-  var led = new five.Led(11);
-  var rm_1Switch = new five.Switch(8);
-  var room_1Temp = new five.Thermometer("A0");
+  let room1Light = new five.Led(11);
+  let room2Light = new five.Led(12);
 
-  function temperature() {
-    room_1Temp.on("change", function() {
-      //var tempReading = value * 1/10;
-      console.log(this.scaleTo(0, 10));
-    });
-  };
+  let rm_1Switch = new five.Switch(7);
+  let rm_2Switch = new five.Switch(6);
+  let room_1Temp = new five.Thermometer({
+    controller: "TMP102"
+  })
 
-  rm_1Switch.on("open", function () {
-    console.log("buton pushed");
-    led.on();
-    islightOn = true;
+
+  room_1Temp.on("change", function () {
+    roomTemp = this.fahrenheit;
+    //console.log(roomTemp)
     database.ref().set({
-      islightOn: islightOn
+      roomTemp: roomTemp,
+    })
+  });
+  //===========================================room 1 light control=================================================================================
+  function rm1LightOn() {
+    //console.log("buton pushed");
+    room1Light.off();
+    room1Light_Status = false;
+    database.ref().set({
+      room1Light_Status: room1Light_Status
     });
+  }
+  rm_1Switch.on("open", function () {
+
   });
 
   rm_1Switch.on("close", function () {
-    console.log("buton not pushed");
-    led.off();
-    islightOn = false;
+    //console.log("buton not pushed");
+    room1Light.on();
+    room1Light_Status = true;
     database.ref().set({
-      islightOn: islightOn
+      room1Light_Status: room1Light_Status
     });
   });
+  //===========================================room 1 light control end=================================================================================
+
+
+  //===========================================room 2 light control=================================================================================
+  rm_2Switch.on("open", function () {
+    //console.log("buton 2 pushed");
+    room2Light.on();
+    room2Light_Status = true;
+    database.ref().set({
+      room2Light_Status: room2Light_Status
+    });
+  });
+
+  rm_2Switch.on("close", function () {
+    //console.log("buton not pushed");
+    room2Light.off();
+    room2Light_Status = false;
+    database.ref().set({
+      room2Light_Status: room2Light_Status
+    });
+  });
+  //===========================================room 2 light control end=================================================================================
 });

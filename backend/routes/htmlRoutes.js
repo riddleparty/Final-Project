@@ -21,6 +21,14 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/room1", function(req, res){
+    db.Users.findOne({where: {id: req.param.id}}).then(function(dbExample){
+      res.render("room1", {
+        example: dbExample
+      }); 
+    }
+  })
+
   app.get("/login", function(req, res){
     res.render("login");
   });
