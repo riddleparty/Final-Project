@@ -91,14 +91,6 @@
       data: { status: "on" }
     }).then(function (response) {
     });
-
-    //Grab data from activity to show unit/room/on/off
-  var newActivityData = {
-    unit: $("#unitdiv").val(),
-    room: $("#roomdiv").val(),
-    status: $("#on").data.status.val()
-    
-};
   });
 
   $("#off").on("click", function () {
@@ -110,10 +102,6 @@
     }).then(function (response) {
     });
   });
-
-  
-
-
 
   
 

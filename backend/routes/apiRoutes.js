@@ -57,61 +57,23 @@ module.exports = function (app) {
     res.send(islightOn);
   });
 
-
-
-
-  //Grab data from activity to show unit/room/on/off
-  var newActivityData = {
-    unit: getElementByID("#unitdiv").val(),
-    room: getElementByID("#roomdiv").val(),
-    status: getElementByID("#statusdiv").val()
-    
-};
-
-
-
-  // GET route for getting all of the todos
-  app.get("/api/status", function(req, res) {
-    // findAll returns all entries for a table when used with no options
-    db.homedb.findAll({}).then(function(dbhome) {
-      // We have access to the todos as an argument inside of the callback function
-      res.json(dbhome);
+  app.get("/api/examples", function (req, res) {
+    db.Users.findAll({}).then(function (dbExamples) {
+      res.json(dbExamples);
     });
   });
 
-
-
-  //post route for Activity
-  app.post("/api/status", function(req, res) {
-    console.log(req.body);
-
-    db.homedb.create({
-      unit: req.body.text,
-      room: req.body.room,
-      status: req.body.status,
-      complete: req.body.complete
-    }).then(function(dbTodo) {
-      // We have access to the new todo as an argument inside of the callback function
-      res.json(dbTodo);
+  // Create a new example
+  app.post("/api/examples", function (req, res) {
+    db.Users.create(req.body).then(function (dbExample) {
+      res.json(dbExample);
     });
-
-
-    // var activity = {
-    //   unit: "",
-    //   room: "",
-    //   status: ""
-      
-    //   };
   });
 
-
-
-  console.log(req.body);
-
-  //db.home.create(req.body).then(function(newActivity) {
-    
-  //}); // create activity
-
-  
+  // Delete an example by id
+  app.delete("/api/examples/:id", function (req, res) {
+    db.Users.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+      res.json(dbExample);
+    });
+  });
 };
-

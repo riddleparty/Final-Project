@@ -1,0 +1,9 @@
+#room-content{
+  position: relative;
+}
+
+#fuck{
+  position: absolute;
+  top: 40px;
+  left: 300px;
+}

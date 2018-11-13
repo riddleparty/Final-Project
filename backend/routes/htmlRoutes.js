@@ -4,10 +4,10 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.homecontrols.findAll({}).then(function(dbhome) {
+    db.Users.findAll({}).then(function(dbExamples) {
       res.render("login", {
         msg: "Welcome!",
-        examples: dbhome
+        examples: dbExamples
       });
     });
   });

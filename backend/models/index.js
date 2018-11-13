@@ -1,7 +1,3 @@
-
-// DO NOT CHANGE ANTHING ON HERE!
-
-
 "use strict";
 
 var fs = require("fs");
