@@ -7,3 +7,9 @@
   top: 40px;
   left: 300px;
 }
+
+#temperatureDiv {
+  color: black;
+  font-size: 30px;
+  
+}

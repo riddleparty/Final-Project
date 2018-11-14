@@ -26,7 +26,20 @@ module.exports = function(app) {
   });
 
   // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
-    res.render("404");
+  // app.get("*", function(req, res) {
+  //   res.render("404");
+  // });
+
+
+  app.get("/room2", function(req, res) {
+    res.render("room2")
   });
+
+  app.get("/room3", function(req, res) {
+    res.render("room3")
+  });
+    
+  
 };
+
+

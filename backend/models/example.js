@@ -15,5 +15,17 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     }
   });
+
+  // var homecontrols = sequelize.define("homecontrols", {
+  //   unit: DataTypes.STRING,
+  //   room: DataTypes.STRING,
+  //   status: DataTypes.BOOLEAN,
+  //   temperature: DataTypes.INTEGER,
+    
+  // });
+
+
+
+
   return Board, Users;
 };
