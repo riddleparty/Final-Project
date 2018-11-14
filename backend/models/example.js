@@ -1,4 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
+  
   var Board = sequelize.define("Board", {
     switch: {
       type: DataTypes.BOOLEAN,

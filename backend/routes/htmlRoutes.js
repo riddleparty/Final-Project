@@ -39,6 +39,9 @@ module.exports = function(app) {
     res.render("room3")
   });
     
+  app.get("/room4", function(req, res) {
+    res.render("room4")
+  });
   
 };
 
