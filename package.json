@@ -20,13 +20,15 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "express": "^4.16.3",
-    "if-env": "^1.0.4",
+    "antd": "^3.10.7",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "if-env": "^1.0.4",
     "johnny-five": "^1.0.0",
     "mysql2": "^1.5.3",
+    "react-router-dom": "^4.3.1",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.1.1"
   }
