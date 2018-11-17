@@ -65,9 +65,7 @@ module.exports = function (app) {
     unit: getElementByID("#unitdiv").val(),
     room: getElementByID("#roomdiv").val(),
     status: getElementByID("#statusdiv").val()
-    
 };
-
 
 
   // GET route for getting all of the todos
